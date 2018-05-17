@@ -41,9 +41,11 @@
 #include <ext/alloc_traits.h>
 #include <ext/aligned_buffer.h>
 #include <bits/stl_pair.h>
+#include <bits/stl_algo.h> // rand(), random_shuffle()
 #include <bits/stl_function.h> // equal_to, _Identity, _Select1st
 #include <bits/functional_hash.h>
 #include <bits/hashtable.h>
+#include <vector> // vector needed in randomized propagation
 #include <bits/unordered_set.h>
 #include <bits/range_access.h>
 

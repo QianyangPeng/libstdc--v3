@@ -312,6 +312,73 @@ _GLIBCXX_BEGIN_NAMESPACE_CONTAINER
 
       //@{
       /**
+       * test the random function
+       */
+      int
+      test_r()
+      { return std::rand(); }
+
+      //@{
+      /**
+       * randomized iterator and functions
+       */
+      class riterator : std::iterator<std::forward_iterator_tag, value_type> {
+         public:
+            riterator(){ end=true; }
+            riterator(_Hashtable _table){
+                _curr_index = 0;
+                _table_size = 0;
+                end = false;
+                for (auto& v : _table){
+                    _values.push_back(v);
+                    _table_size += 1;
+                }
+                srand(unsigned(time(NULL)));
+                std::random_shuffle(_values.begin(), _values.end());
+            }
+            riterator & operator++(){
+                _curr_index += 1;
+                if (_curr_index>=_table_size){
+                    end=true;
+                }
+                return *this;
+            }
+            value_type operator*(){
+                return _values[_curr_index];
+            }
+            bool operator!=(const riterator &other){
+                if (end && other.end){
+                    return false;
+                }
+                if ((_curr_index != other._curr_index) || (_table_size != other._table_size)){
+                    return true;
+                }
+                for(int i=0; i < _values.size(); i++){
+                    if (_values[i]!=other._values[i]){
+                        return true;
+                    }
+                }
+                return false;
+            }
+         private:
+            std::vector<value_type> _values;
+            int _curr_index;
+            int _table_size;
+            bool end;
+      };
+
+      riterator
+      rbegin() noexcept {
+            return riterator(_M_h);
+      }
+
+      riterator
+      rend() noexcept {
+            return riterator();
+      }
+
+      //@{
+      /**
        *  Returns a read-only (constant) iterator that points to the first
        *  element in the %unordered_set.
        */
