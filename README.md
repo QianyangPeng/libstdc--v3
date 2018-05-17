@@ -6,16 +6,19 @@ The motivation is to generate a randomized sequence of traversal of an unordered
 1. Download the source code of gcc-8.1.0:
 
 `wget http://mirrors-usa.go-parts.com/gcc/releases/gcc-8.1.0/gcc-8.1.0.tar.gz`
+
 2. Configure the installation. **Do not** install this gcc into the default path:
 
 `mkdir /test/gcc`
 
 `./configure --prefix=/test/gcc`
+
 3. Compile the code and install the package:
 
 `make`
 
 `make install`
+
 4. Download this git repo, replace the folder `libstdc++-v3` in `gcc-8.1.0` with this folder:
 
 `mv ./gcc-8.1.0/libstdc++-v3 ./gcc-8.1.0/libstdc++-v3-backup`
@@ -31,6 +34,7 @@ The motivation is to generate a randomized sequence of traversal of an unordered
 6. Now you can use the new gcc to compile any c++ code, with the iterating order of unordered_set randomized.
 
 `/test/gcc/bin/gcc xxx.cpp -o xxx -lstdc++`
+
 # usage
 Here is a example of using the randomized iterator:
 ```cpp
